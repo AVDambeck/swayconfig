@@ -1,0 +1,266 @@
+# Autostart
+exec mpd
+
+# Var
+set $term alacritty
+set $menu wofi --show=drun --lines=5 --prompt==""
+
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $color_primary #E62100
+set $color_text #FFFFFF
+set $color_background #000000
+set $color_gray #5C1A19
+
+# Config
+seat * hide_cursor when-typing enable
+input * {
+	xkb_options caps:hyper
+}
+
+output * bg ~/wallpaper.jpg fill
+output HDMI-A-3 {
+	transform 270
+	pos 0,0
+}
+# Color
+client.focused $color_primary $color_background $color_text
+client.unfocused $color_gray $color_background $color_text
+client.focused_inactive $color_gray $color_background $color_text
+
+# Status Bar:
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position top
+
+    status_command while date +'%Y-%m-%d %R'; do sleep 1; done
+
+    colors {
+        statusline $color_text
+        background $color_background
+        inactive_workspace $color_gray $color_background $color_text
+        active_workspace $color_primary $color_background $color_text
+	focused_workspace $color_primary $color_background $color_text
+	urgent_workspace $color_background $color_primary $color_text
+	binding_mode $color_gray $color_background $color_text
+    }
+}
+
+
+mode "default" {
+	# modes
+	bindsym i mode "focus"
+        bindsym r mode "resize"
+	bindsym a mode "arrow"
+	bindsym Space exec $menu; mode "menu"
+
+        # Tools
+ 	bindsym t exec $term 
+	bindsym Shift+x kill
+	## Screenshot
+       	bindsym p exec grim -g "$(slurp)" - | swappy -f - -o ~/temp/$(date +%y-%m-%d_%h:%m:%S).png
+	## edit config
+	bindsym c exec $term -e vim .config/sway/config; mode "focus"
+	## page up and down
+	bindsym d exec wtype -P Next
+	bindsym Shift+d exec wtype -P Prior
+
+    	# Movement
+        bindsym $left focus left
+        bindsym $down focus down
+        bindsym $up focus up
+        bindsym $right focus right
+
+	bindsym Tab focus next
+	bindsym Shift+Tab focus prev
+
+        bindsym Shift+$left move left
+        bindsym Shift+$down move down
+        bindsym Shift+$up move up
+        bindsym Shift+$right move right
+
+        bindsym shift+s splith
+        bindsym s splitv
+        bindsym f fullscreen
+    
+        # Workspace
+        bindsym 1 workspace number 1
+        bindsym 2 workspace number 2
+        bindsym 3 workspace number 3
+        bindsym 4 workspace number 4
+        bindsym 5 workspace number 5
+        bindsym 6 workspace number 6
+        bindsym 7 workspace number 7
+        bindsym 8 workspace number 8
+        bindsym 9 workspace number 9
+        bindsym 0 workspace number 10
+        bindsym Shift+1 move container to workspace number 1
+        bindsym Shift+2 move container to workspace number 2
+        bindsym Shift+3 move container to workspace number 3
+        bindsym Shift+4 move container to workspace number 4
+        bindsym Shift+5 move container to workspace number 5
+        bindsym Shift+6 move container to workspace number 6
+        bindsym Shift+7 move container to workspace number 7
+        bindsym Shift+8 move container to workspace number 8
+        bindsym Shift+9 move container to workspace number 9
+        bindsym Shift+0 move container to workspace number 10
+}
+
+# Focus
+mode "focus" {
+	# Reload 
+	bindsym Mod4+Shift+c reload
+	bindsym Mod4+c exec $term -e vim .config/sway/config
+
+	# Modes
+	bindsym hyper_l mode "default"
+
+	# Exitl
+	bindsym Mod4+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+	# focus
+	bindsym Mod4+$left focus left
+	bindsym Mod4+$down focus down
+	bindsym Mod4+$up focus up
+	bindsym Mod4+$right focus right
+	# move
+	bindsym Mod4+Shift+$left move left
+	bindsym Mod4+Shift+$down move down
+	bindsym Mod4+Shift+$up move up
+	bindsym Mod4+Shift+$right move right
+
+
+	# Tools
+	bindsym Alt+Tab focus next
+	bindsym Shift+Alt+Tab focus prev 
+	bindsym Mod4+Return exec $term
+	bindsym Mod4+Shift+q kill
+	bindsym Mod4+d exec $menu
+
+	# Switch to workspace
+	bindsym Mod4+1 workspace number 1
+	bindsym Mod4+2 workspace number 2
+	bindsym Mod4+3 workspace number 3
+	bindsym Mod4+4 workspace number 4
+	bindsym Mod4+5 workspace number 5
+	bindsym Mod4+6 workspace number 6
+	bindsym Mod4+7 workspace number 7
+	bindsym Mod4+8 workspace number 8
+	bindsym Mod4+9 workspace number 9
+	bindsym Mod4+0 workspace number 10
+	# Move focused container to workspace
+	bindsym Mod4+Shift+1 move container to workspace number 1
+	bindsym Mod4+Shift+2 move container to workspace number 2
+	bindsym Mod4+Shift+3 move container to workspace number 3
+	bindsym Mod4+Shift+4 move container to workspace number 4
+	bindsym Mod4+Shift+5 move container to workspace number 5
+	bindsym Mod4+Shift+6 move container to workspace number 6
+	bindsym Mod4+Shift+7 move container to workspace number 7
+	bindsym Mod4+Shift+8 move container to workspace number 8
+	bindsym Mod4+Shift+9 move container to workspace number 9
+	bindsym Mod4+Shift+0 move container to workspace number 10
+
+	# Make the current focus fullscreen
+	bindsym Mod4+f fullscreen
+}
+
+# Resize
+mode "resize" {
+    set $resizeunit 50px
+    bindsym $left resize shrink width $resizeunit
+    bindsym $down resize grow height $resizeunit
+    bindsym $up resize shrink height $resizeunit
+    bindsym $right resize grow width $resizeunit
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Menu
+mode "menu" {
+    bindsym Space mode "default"
+    bindsym Escape mode "default"
+}
+
+# Arrow
+mode arrow {
+    bindsym Escape mode "default"
+    bindsym hyper_l mode "default"
+    bindsym i mode "focus"
+    bindsym v mode "selection"
+
+    bindsym $left exec wtype -P Left 
+    bindsym $right exec wtype -P Right 
+    bindsym $up exec wtype -P Up 
+    bindsym $down exec wtype -P Down 
+
+    bindsym 0 exec wtype -P Home
+    bindsym dollar exec wtype -P End 
+    bindsym b exec wtype -M ctrl -P left
+    bindsym e exec wtype -M ctrl -P right
+
+    bindsym Shift+j exec wtype -P Next
+    bindsym Shift+k exec wtype -P Prior
+
+    bindsym y exec wtype -M ctrl c 
+    bindsym Shift+y exec wtype -M ctrl x 
+    bindsym p exec wtype -M ctrl v 
+    bindsym u exec wtype -M ctrl z 
+    bindsym Shift+u exec wtype -M ctrl -M shift z 
+}
+
+# Selection
+mode selection {
+    bindsym $left exec wtype -M shift -P Left 
+    bindsym $right exec wtype -M shift -P Right 
+    bindsym $up exec wtype -M shift -P Up 
+    bindsym $down exec wtype -M shift -P Down 
+
+    bindsym 0 exec wtype -M shift -P Home
+    bindsym dollar exec wtype -M shift -P End 
+
+    bindsym b exec wtype -M ctrl -M shift -P left
+    bindsym e exec wtype -M ctrl -M shift -P right
+
+    bindsym ctrl+$up exec wtype -M ctrl -M shift -P Up 
+    bindsym ctrl+$down exec wtype -M ctrl -M shift -P Down 
+
+    bindsym Escape mode "arrow"
+    bindsym v mode "arrow"
+    bindsym hyper_l "default"
+}
+
+# Music
+mode music {
+    bindsym $left exec mpc prev
+    bindsym $down exec mpc pause
+    bindsym $up exec mpc play
+    bindsym $right exec mpc next
+    bindsym Shift+$left exec mpc seek -30
+    bindsym Shift+$right exec mpc seek +30
+#    bindsym a exec $term -e imv "$(echo /home/carrieanne/music/$(mpc current -f "%file%" | sed 's/\/[^\/]*$//'))"/*.{jpg,jpeg,png,gif,bmp,webm}
+    bindsym m exec xdg-open ~/documents/music.ods
+    bindsym t exec ario
+    bindsym semicolon exec $term --working-directory ~/music
+    bindsym Escape mode "default"
+}
+
+# Utilities:
+#
+    # Special keys to adjust volume via PulseAudio
+    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    # Special keys to adjust brightness via brightnessctl
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+
+include /etc/sway/config.d/*
+
+
+
+
