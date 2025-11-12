@@ -34,7 +34,7 @@ client.focused_inactive $color_gray $color_background $color_text
 # Status Bar:
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
+    position bottom
 
     status_command while date +'%Y-%m-%d %R'; do sleep 1; done
 
@@ -52,9 +52,9 @@ bar {
 
 mode "default" {
 	# modes
-	bindsym i mode "focus"
-        bindsym r mode "resize"
-	bindsym a mode "arrow"
+	bindsym i mode "insert mode"
+        bindsym r mode "resize mode"
+	bindsym a mode "arrow mode"
 	bindsym Space exec $menu; mode "menu"
 
         # Tools
@@ -63,7 +63,7 @@ mode "default" {
 	## Screenshot
        	bindsym p exec grim -g "$(slurp)" - | swappy -f - -o ~/temp/$(date +%y-%m-%d_%h:%m:%S).png
 	## edit config
-	bindsym c exec $term -e vim .config/sway/config; mode "focus"
+	bindsym c exec $term -e vim .config/sway/config; mode "insert mode"
 	## page up and down
 	bindsym d exec wtype -P Next
 	bindsym Shift+d exec wtype -P Prior
@@ -110,7 +110,7 @@ mode "default" {
 }
 
 # Focus
-mode "focus" {
+mode "insert mode" {
 	# Reload 
 	bindsym Mod4+Shift+c reload
 	bindsym Mod4+c exec $term -e vim .config/sway/config
@@ -168,7 +168,7 @@ mode "focus" {
 }
 
 # Resize
-mode "resize" {
+mode "resize mode" {
     set $resizeunit 50px
     bindsym $left resize shrink width $resizeunit
     bindsym $down resize grow height $resizeunit
@@ -189,7 +189,7 @@ mode "menu" {
 mode arrow {
     bindsym Escape mode "default"
     bindsym hyper_l mode "default"
-    bindsym i mode "focus"
+    bindsym i mode "insert mode"
     bindsym v mode "selection"
 
     bindsym $left exec wtype -P Left 
@@ -228,8 +228,8 @@ mode selection {
     bindsym ctrl+$up exec wtype -M ctrl -M shift -P Up 
     bindsym ctrl+$down exec wtype -M ctrl -M shift -P Down 
 
-    bindsym Escape mode "arrow"
-    bindsym v mode "arrow"
+    bindsym Escape mode "arrow mode"
+    bindsym v mode "arrow mode"
     bindsym hyper_l "default"
 }
 
