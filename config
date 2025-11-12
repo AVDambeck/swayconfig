@@ -52,7 +52,7 @@ bar {
 
 mode "default" {
 	# modes
-	bindsym i mode "insert mode"
+	bindsym i mode "interactiion mode"
         bindsym r mode "resize mode"
 	bindsym a mode "arrow mode"
 	bindsym Space exec $menu; mode "menu"
@@ -63,7 +63,7 @@ mode "default" {
 	## Screenshot
        	bindsym p exec grim -g "$(slurp)" - | swappy -f - -o ~/temp/$(date +%y-%m-%d_%h:%m:%S).png
 	## edit config
-	bindsym c exec $term -e vim .config/sway/config; mode "insert mode"
+	bindsym c exec $term -e vim .config/sway/config; mode "interactiion mode"
 	## page up and down
 	bindsym d exec wtype -P Next
 	bindsym Shift+d exec wtype -P Prior
@@ -110,7 +110,7 @@ mode "default" {
 }
 
 # Focus
-mode "insert mode" {
+mode "interactiion mode" {
 	# Reload 
 	bindsym Mod4+Shift+c reload
 	bindsym Mod4+c exec $term -e vim .config/sway/config
@@ -189,7 +189,7 @@ mode "menu" {
 mode arrow {
     bindsym Escape mode "default"
     bindsym hyper_l mode "default"
-    bindsym i mode "insert mode"
+    bindsym i mode "interactiion mode"
     bindsym v mode "selection"
 
     bindsym $left exec wtype -P Left 
