@@ -72,7 +72,6 @@ mode "default" {
 	bindsym --locked Shift+b exec brightnessctl set 5%+
 
 
-
     	# Movement
         bindsym $left focus left
         bindsym $down focus down
@@ -112,6 +111,21 @@ mode "default" {
         bindsym Shift+8 move container to workspace number 8
         bindsym Shift+9 move container to workspace number 9
         bindsym Shift+0 move container to workspace number 10
+
+	# unused 
+	bindsym q exec ""
+	bindsym w exec ""
+	bindsym e exec ""
+	bindsym y exec ""
+	bindsym u exec ""
+	bindsym o exec ""
+	bindsym g exec ""
+	bindsym z exec ""
+	bindsym x exec ""
+	bindsym c exec ""
+	bindsym v exec ""
+	bindsym n exec ""
+	bindsym m exec ""
 }
 
 # Focus
