@@ -191,7 +191,7 @@ mode "menu" {
 }
 
 # Arrow
-mode arrow {
+mode "arrow mode" {
     bindsym Escape mode "default"
     bindsym hyper_l mode "default"
     bindsym i mode "interaction mode"
