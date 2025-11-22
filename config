@@ -19,10 +19,10 @@ set $out-left HDMI-A-3
 set $out-right HDMI-A-2
 
 # Workspaces
-workspace "music" output $out-left
-workspace "comms" output $out-left
-workspace "misc" output $out-left
-workspace "network" output $out-left
+workspace "1 music" output $out-left
+workspace "2 comms" output $out-left
+workspace "3 misc" output $out-left
+workspace "8 network" output $out-left
 workspace "picture" output $out-left
 workspace "0" output $out-right
 workspace "1" output $out-right
@@ -33,7 +33,7 @@ workspace "5" output $out-right
 workspace "6" output $out-right
 workspace "7" output $out-right
 workspace "8" output $out-right
-workspace "9" output $out-right
+workspace "9 picture" output $out-right
 
 # Config
 seat * hide_cursor when-typing enable
@@ -112,18 +112,18 @@ mode "default" {
         # Workspace
         bindsym 0 workspace "0";
         bindsym 1 workspace "1";
-	bindsym Alt+1 workspace "music"
+	bindsym Alt+1 workspace "1 music"
         bindsym 2 workspace "2";
-	bindsym Alt+2 workspace "comms"
+	bindsym Alt+2 workspace "2 comms"
         bindsym 3 workspace "3";
-	bindsym Alt+3 workspace "misc"
+	bindsym Alt+3 workspace "3 misc"
         bindsym 4 workspace "4";
         bindsym 5 workspace "5";
         bindsym 6 workspace "6";
         bindsym 7 workspace "7";
         bindsym 8 workspace "8";
-	bindsym Alt+8 workspace "network"
-        bindsym 9 workspace "9";
+	bindsym Alt+8 workspace "8 network"
+        bindsym 9 workspace "9 picture";
 	bindsym Alt+9 workspace "picture"
 
         bindsym Shift+0 move container to workspace "0"
@@ -135,12 +135,12 @@ mode "default" {
         bindsym Shift+6 move container to workspace "6"
         bindsym Shift+7 move container to workspace "7"
         bindsym Shift+8 move container to workspace "8"
-        bindsym Shift+9 move container to workspace "9"
+        bindsym Shift+9 move container to workspace "9 picture"
 
-	bindsym Shift+Alt+1 move container to workspace "music"
-	bindsym Shift+Alt+2 move container to workspace "comms"
-	bindsym Shift+Alt+3 move container to workspace "misc"
-	bindsym Shift+Alt+8 move container to workspace "network"
+	bindsym Shift+Alt+1 move container to workspace "1 music"
+	bindsym Shift+Alt+2 move container to workspace "2 comms"
+	bindsym Shift+Alt+3 move container to workspace "3 misc"
+	bindsym Shift+Alt+8 move container to workspace "8 network"
 	bindsym Shift+Alt+9 move container to workspace "picture"
 
 
