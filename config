@@ -112,19 +112,25 @@ mode "default" {
         # Workspace
         bindsym 0 workspace "0";
         bindsym 1 workspace "1";
-	bindsym Alt+1 workspace "1 music"
+	#bindsym Alt+1 workspace "1 music"
         bindsym 2 workspace "2";
-	bindsym Alt+2 workspace "2 comms"
+	#bindsym Alt+2 workspace "2 comms"
         bindsym 3 workspace "3";
-	bindsym Alt+3 workspace "3 misc"
+	#bindsym Alt+3 workspace "3 misc"
         bindsym 4 workspace "4";
         bindsym 5 workspace "5";
         bindsym 6 workspace "6";
         bindsym 7 workspace "7";
         bindsym 8 workspace "8";
-	bindsym Alt+8 workspace "8 network"
+	#bindsym Alt+8 workspace "8 network"
         bindsym 9 workspace "9";
-	bindsym Alt+9 workspace "9 noise"
+	#bindsym Alt+9 workspace "9 noise"
+
+	bindsym q workspace "1 music"
+	bindsym w workspace "2 comms"
+	bindsym e workspace "3 misc"
+	bindsym r workspace "8 network"
+	bindsym t workspace "9 noise"
 
         bindsym Shift+0 move container to workspace "0"
         bindsym Shift+1 move container to workspace "1"
@@ -142,11 +148,12 @@ mode "default" {
 	# bindsym Shift+Alt+3 move container to workspace "3 misc"
 	# bindsym Shift+Alt+8 move container to workspace "8 network"
 	# bindsym Shift+Alt+9 move container to workspace "9 noise"
-	bindsym q move container to workspace "1 music"
-	bindsym w move container to workspace "2 comms"
-	bindsym e move container to workspace "3 misc"
-	bindsym r move container to workspace "8 network"
-	bindsym t move container to workspace "9 noise"
+
+	bindsym Alt+q move container to workspace "1 music"
+	bindsym Alt+w move container to workspace "2 comms"
+	bindsym Alt+e move container to workspace "3 misc"
+	bindsym Alt+r move container to workspace "8 network"
+	bindsym Alt+t move container to workspace "9 noise"
 
 	# unused 
 	bindsym y exec ""
