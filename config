@@ -15,6 +15,32 @@ set $color_text #FFFFFF
 set $color_background #000000
 set $color_gray #5C1A19
 
+set $out-left HDMI-A-3
+set $out-right HDMI-A-2
+
+# Workspaces
+workspace "music" output $out-left
+workspace "0l" output $out-left
+workspace "1l" output $out-left
+workspace "2l" output $out-left
+workspace "3l" output $out-left
+workspace "4l" output $out-left
+workspace "5l" output $out-left
+workspace "6l" output $out-left
+workspace "7l" output $out-left
+workspace "8l" output $out-left
+workspace "9l" output $out-left
+workspace "0r" output $out-right
+workspace "1r" output $out-right
+workspace "2r" output $out-right
+workspace "3r" output $out-right
+workspace "4r" output $out-right
+workspace "5r" output $out-right
+workspace "6r" output $out-right
+workspace "7r" output $out-right
+workspace "8r" output $out-right
+workspace "9r" output $out-right
+
 # Config
 seat * hide_cursor when-typing enable
 input * {
@@ -22,7 +48,7 @@ input * {
 }
 
 output * bg ~/documents/git/swayconfig/wallpaper.jpg fill
-output HDMI-A-3 {
+output $out-left {
 	transform 270
 	pos 0,0
 }
@@ -91,26 +117,39 @@ mode "default" {
         bindsym f fullscreen
     
         # Workspace
-        bindsym 1 workspace number 1
-        bindsym 2 workspace number 2
-        bindsym 3 workspace number 3
-        bindsym 4 workspace number 4
-        bindsym 5 workspace number 5
-        bindsym 6 workspace number 6
-        bindsym 7 workspace number 7
-        bindsym 8 workspace number 8
-        bindsym 9 workspace number 9
-        bindsym 0 workspace number 10
-        bindsym Shift+1 move container to workspace number 1
-        bindsym Shift+2 move container to workspace number 2
-        bindsym Shift+3 move container to workspace number 3
-        bindsym Shift+4 move container to workspace number 4
-        bindsym Shift+5 move container to workspace number 5
-        bindsym Shift+6 move container to workspace number 6
-        bindsym Shift+7 move container to workspace number 7
-        bindsym Shift+8 move container to workspace number 8
-        bindsym Shift+9 move container to workspace number 9
-        bindsym Shift+0 move container to workspace number 10
+	bindsym m workspace "music"
+        bindsym 0 workspace "0l"; workspace "0r";
+        bindsym 1 workspace "1l"; workspace "1r";
+        bindsym 2 workspace "2l"; workspace "2r";
+        bindsym 3 workspace "3l"; workspace "3r";
+        bindsym 4 workspace "4l"; workspace "4r";
+        bindsym 5 workspace "5l"; workspace "5r";
+        bindsym 6 workspace "6l"; workspace "6r";
+        bindsym 7 workspace "7l"; workspace "7r";
+        bindsym 8 workspace "8l"; workspace "8r";
+        bindsym 9 workspace "9l"; workspace "9r";
+
+        bindsym Shift+0 move container to workspace "0r"
+        bindsym Shift+1 move container to workspace "1r"
+        bindsym Shift+2 move container to workspace "2r"
+        bindsym Shift+3 move container to workspace "3r"
+        bindsym Shift+4 move container to workspace "4r"
+        bindsym Shift+5 move container to workspace "5r"
+        bindsym Shift+6 move container to workspace "6r"
+        bindsym Shift+7 move container to workspace "7r"
+        bindsym Shift+8 move container to workspace "8r"
+        bindsym Shift+9 move container to workspace "9r"
+
+        bindsym Alt+0 move container to workspace "0l"
+        bindsym Alt+1 move container to workspace "1l"
+        bindsym Alt+2 move container to workspace "2l"
+        bindsym Alt+3 move container to workspace "3l"
+        bindsym Alt+4 move container to workspace "4l"
+        bindsym Alt+5 move container to workspace "5l"
+        bindsym Alt+6 move container to workspace "6l"
+        bindsym Alt+7 move container to workspace "7l"
+        bindsym Alt+8 move container to workspace "8l"
+        bindsym Alt+9 move container to workspace "9l"
 
 	# unused 
 	bindsym q exec ""
@@ -125,7 +164,6 @@ mode "default" {
 	bindsym c exec ""
 	bindsym v exec ""
 	bindsym n exec ""
-	bindsym m exec ""
 }
 
 # Focus
@@ -145,12 +183,6 @@ mode "interaction mode" {
 	bindsym Mod4+$down focus down
 	bindsym Mod4+$up focus up
 	bindsym Mod4+$right focus right
-	# move
-	bindsym Mod4+Shift+$left move left
-	bindsym Mod4+Shift+$down move down
-	bindsym Mod4+Shift+$up move up
-	bindsym Mod4+Shift+$right move right
-
 
 	# Tools
 	bindsym Alt+Tab focus next
@@ -158,29 +190,6 @@ mode "interaction mode" {
 	bindsym Mod4+Return exec $term
 	bindsym Mod4+Shift+q kill
 	bindsym Mod4+d exec $menu
-
-	# Switch to workspace
-	bindsym Mod4+1 workspace number 1
-	bindsym Mod4+2 workspace number 2
-	bindsym Mod4+3 workspace number 3
-	bindsym Mod4+4 workspace number 4
-	bindsym Mod4+5 workspace number 5
-	bindsym Mod4+6 workspace number 6
-	bindsym Mod4+7 workspace number 7
-	bindsym Mod4+8 workspace number 8
-	bindsym Mod4+9 workspace number 9
-	bindsym Mod4+0 workspace number 10
-	# Move focused container to workspace
-	bindsym Mod4+Shift+1 move container to workspace number 1
-	bindsym Mod4+Shift+2 move container to workspace number 2
-	bindsym Mod4+Shift+3 move container to workspace number 3
-	bindsym Mod4+Shift+4 move container to workspace number 4
-	bindsym Mod4+Shift+5 move container to workspace number 5
-	bindsym Mod4+Shift+6 move container to workspace number 6
-	bindsym Mod4+Shift+7 move container to workspace number 7
-	bindsym Mod4+Shift+8 move container to workspace number 8
-	bindsym Mod4+Shift+9 move container to workspace number 9
-	bindsym Mod4+Shift+0 move container to workspace number 10
 
 	# Make the current focus fullscreen
 	bindsym Mod4+f fullscreen
@@ -195,12 +204,6 @@ mode "resize mode" {
     bindsym $right resize grow width $resizeunit
 
     bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-
-# Menu
-mode "menu" {
-    bindsym Space mode "default"
     bindsym Escape mode "default"
 }
 
