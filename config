@@ -23,7 +23,7 @@ workspace "1 music" output $out-left
 workspace "2 comms" output $out-left
 workspace "3 misc" output $out-left
 workspace "8 network" output $out-left
-workspace "9 picture" output $out-left
+workspace "9 noise" output $out-left
 workspace "0" output $out-right
 workspace "1" output $out-right
 workspace "2" output $out-right
@@ -73,12 +73,12 @@ bar {
 mode "default" {
 	# modes
 	bindsym i mode "interaction mode"
-        bindsym r mode "resize mode"
+        bindsym Shift+r mode "resize mode"
 	bindsym a mode "arrow mode"
 	bindsym Space exec $menu; mode "interaction mode"
 
         # Tools
- 	bindsym t exec $term; mode "interaction mode"
+ 	bindsym semicolon exec $term; mode "interaction mode"
 	bindsym Shift+x kill
 	## Screenshot
        	bindsym p exec grim -g "$(slurp)" - | swappy -f - -o ~/temp/$(date +%y-%m-%d_%h:%m:%S).png
@@ -124,7 +124,7 @@ mode "default" {
         bindsym 8 workspace "8";
 	bindsym Alt+8 workspace "8 network"
         bindsym 9 workspace "9";
-	bindsym Alt+9 workspace "9 picture"
+	bindsym Alt+9 workspace "9 noise"
 
         bindsym Shift+0 move container to workspace "0"
         bindsym Shift+1 move container to workspace "1"
@@ -137,17 +137,18 @@ mode "default" {
         bindsym Shift+8 move container to workspace "8"
         bindsym Shift+9 move container to workspace "9"
 
-	bindsym Shift+Alt+1 move container to workspace "1 music"
-	bindsym Shift+Alt+2 move container to workspace "2 comms"
-	bindsym Shift+Alt+3 move container to workspace "3 misc"
-	bindsym Shift+Alt+8 move container to workspace "8 network"
-	bindsym Shift+Alt+9 move container to workspace "9 picture"
-
+	# bindsym Shift+Alt+1 move container to workspace "1 music"
+	# bindsym Shift+Alt+2 move container to workspace "2 comms"
+	# bindsym Shift+Alt+3 move container to workspace "3 misc"
+	# bindsym Shift+Alt+8 move container to workspace "8 network"
+	# bindsym Shift+Alt+9 move container to workspace "9 noise"
+	bindsym q move container to workspace "1 music"
+	bindsym w move container to workspace "2 comms"
+	bindsym e move container to workspace "3 misc"
+	bindsym r move container to workspace "8 network"
+	bindsym t move container to workspace "9 noise"
 
 	# unused 
-	bindsym q exec ""
-	bindsym w exec ""
-	bindsym e exec ""
 	bindsym y exec ""
 	bindsym u exec ""
 	bindsym o exec ""
