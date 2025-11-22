@@ -36,7 +36,7 @@ client.focused_inactive $color_gray $color_background $color_text
 bar {
     position bottom
 
-    status_command while echo -e $(mpc current -f %artist%) - $(mpc current -f %album%) - $(mpc current -f %title%) - $(mpc status  %currenttime%/%totaltime%) - $(mpc current -f %position%)/$(mpc playlist | wc -l) \| $(date +'%Y-%m-%d %R') \|; do sleep 1; done
+    status_command while echo -e $(if [ "$(mpc current)" != "" ]; then echo $(mpc current -f %artist%) - $(mpc current -f %album%) - $(mpc current -f %title%) - $(mpc status  %currenttime%/%totaltime%) - $(mpc current -f %position%)/$(mpc playlist | wc -l) \|; fi) $(date +'%Y-%m-%d %R') \|; do sleep 1; done
 
     colors {
         statusline $color_text
@@ -55,10 +55,10 @@ mode "default" {
 	bindsym i mode "interaction mode"
         bindsym r mode "resize mode"
 	bindsym a mode "arrow mode"
-	bindsym Space exec $menu; mode "menu"
+	bindsym Space exec $menu; mode "interaction mode"
 
         # Tools
- 	bindsym t exec $term 
+ 	bindsym t exec $term; mode "interaction mode"
 	bindsym Shift+x kill
 	## Screenshot
        	bindsym p exec grim -g "$(slurp)" - | swappy -f - -o ~/temp/$(date +%y-%m-%d_%h:%m:%S).png
