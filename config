@@ -22,8 +22,7 @@ set $out-right HDMI-A-2
 workspace "1 music" output $out-left
 workspace "2 comms" output $out-left
 workspace "3 misc" output $out-left
-workspace "8 network" output $out-left
-workspace "9 noise" output $out-left
+workspace "4 network" output $out-left
 workspace "0" output $out-right
 workspace "1" output $out-right
 workspace "2" output $out-right
@@ -74,7 +73,6 @@ mode "default" {
 	# modes
 	bindsym i mode "interaction mode"
         bindsym Shift+r mode "resize mode"
-	bindsym a mode "arrow mode"
 	bindsym Space exec $menu; mode "interaction mode"
 
         # Tools
@@ -85,8 +83,8 @@ mode "default" {
 	## edit config
 	# bindsym c exec $term -e vim .config/sway/config; mode "interaction mode"
 	## page up and down
-	bindsym d exec wtype -P Next
-	bindsym Shift+d exec wtype -P Prior
+	bindsym q exec wtype -P Next
+	bindsym Shift+q exec wtype -P Prior
 	# Special keys to adjust brightness via brightnessctl
 	bindsym --locked b exec brightnessctl set 5%-
 	bindsym --locked Shift+b exec brightnessctl set 5%+
@@ -107,30 +105,24 @@ mode "default" {
         bindsym Shift+$right move right
 
         bindsym shift+s splith
-        bindsym s splitv
+        bindsym v splitv
 
         # Workspace
         bindsym 0 workspace "0";
         bindsym 1 workspace "1";
-	#bindsym Alt+1 workspace "1 music"
         bindsym 2 workspace "2";
-	#bindsym Alt+2 workspace "2 comms"
         bindsym 3 workspace "3";
-	#bindsym Alt+3 workspace "3 misc"
         bindsym 4 workspace "4";
         bindsym 5 workspace "5";
         bindsym 6 workspace "6";
         bindsym 7 workspace "7";
         bindsym 8 workspace "8";
-	#bindsym Alt+8 workspace "8 network"
         bindsym 9 workspace "9";
-	#bindsym Alt+9 workspace "9 noise"
 
-	bindsym q workspace "1 music"
-	bindsym w workspace "2 comms"
-	bindsym e workspace "3 misc"
-	bindsym r workspace "8 network"
-	bindsym t workspace "9 noise"
+	bindsym a workspace "1 music"
+	bindsym s workspace "2 comms"
+	bindsym d workspace "3 misc"
+	bindsym f workspace "4 network"
 
         bindsym Shift+0 move container to workspace "0"
         bindsym Shift+1 move container to workspace "1"
@@ -143,17 +135,10 @@ mode "default" {
         bindsym Shift+8 move container to workspace "8"
         bindsym Shift+9 move container to workspace "9"
 
-	# bindsym Shift+Alt+1 move container to workspace "1 music"
-	# bindsym Shift+Alt+2 move container to workspace "2 comms"
-	# bindsym Shift+Alt+3 move container to workspace "3 misc"
-	# bindsym Shift+Alt+8 move container to workspace "8 network"
-	# bindsym Shift+Alt+9 move container to workspace "9 noise"
-
-	bindsym Alt+q move container to workspace "1 music"
-	bindsym Alt+w move container to workspace "2 comms"
-	bindsym Alt+e move container to workspace "3 misc"
-	bindsym Alt+r move container to workspace "8 network"
-	bindsym Alt+t move container to workspace "9 noise"
+	bindsym Alt+a move container to workspace "1 music"
+	bindsym Alt+s move container to workspace "2 comms"
+	bindsym Alt+d move container to workspace "3 misc"
+	bindsym Alt+f move container to workspace "4 network"
 
 	# unused 
 	bindsym y exec ""
@@ -163,9 +148,11 @@ mode "default" {
 	bindsym z exec ""
 	bindsym x exec ""
 	bindsym c exec ""
-	bindsym v exec ""
 	bindsym n exec ""
 	bindsym m exec ""
+	bindsym r exec ""
+	bindsym w exec ""
+	bindsym t exec ""
 }
 
 # Focus
