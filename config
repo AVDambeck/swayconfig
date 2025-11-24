@@ -3,7 +3,7 @@ exec mpd
 
 # Var
 set $term alacritty
-set $menu wofi --show=drun --lines=1 --prompt=="Do What Thou Wilt" 
+set $menu wofi --show=drun --lines=1 --prompt=="Do What Thou Wilt" -b -i
 
 set $left h
 set $down j
