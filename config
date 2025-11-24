@@ -57,7 +57,7 @@ client.focused_inactive $color_gray $color_background $color_text
 bar {
     position bottom
 
-    status_command while echo -e $(if [ "$(mpc current)" != "" ]; then echo $(mpc current -f %artist%) - $(mpc current -f %album%) - $(mpc current -f %title%) - $(mpc status  %currenttime%/%totaltime%) - $(mpc current -f %position%)/$(mpc playlist | wc -l) \|; fi) $(date +'%Y-%m-%d %R') \|; do sleep 1; done
+    status_command while echo -e $(if [ "$(mpc current)" != "" ]; then echo $(mpc current -f %artist%) - $(mpc current -f %album%) - $(mpc current -f %title%) - $(mpc status  %currenttime%/%totaltime%) - $(mpc current -f %position%)/$(mpc playlist | wc -l) \|; fi) \| $(pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | cut -d'/' -f2) \| $(date +'%Y-%m-%d | %R') \|; do sleep 1; done
 
     colors {
         statusline $color_text
@@ -74,7 +74,7 @@ bar {
 mode "default" {
 	# modes
 	bindsym i mode "interaction mode"
-        bindsym Shift+r mode "resize mode"
+        bindsym r mode "resize mode"
 	bindsym Space exec $menu; mode "interaction mode"
 
         # Tools
@@ -88,9 +88,8 @@ mode "default" {
 	bindsym q exec wtype -P Down -P Down -P Down -P Down -P Down
 	bindsym Shift+q exec wtype -P Up -P Up -P Up -P Up -P Up
 	# Special keys to adjust brightness via brightnessctl
-	bindsym --locked b exec brightnessctl set 5%-
-	bindsym --locked Shift+b exec brightnessctl set 5%+
-
+	bindsym b exec brightnessctl set 5%-
+	bindsym Shift+b exec brightnessctl set 5%+
 
     	# Movement
         bindsym $left focus left
@@ -142,9 +141,13 @@ mode "default" {
 	bindsym Alt+d move container to workspace "3 misc"
 	bindsym Alt+f move container to workspace "4 network"
 
+	# Special keys to adjust volume via PulseAudio
+	# bindsym  exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+	bindsym u exec pactl set-sink-volume \@DEFAULT_SINK@ -10%
+	bindsym Shift+u exec pactl set-sink-volume \@DEFAULT_SINK@ +10%
+
 	# unused 
 	bindsym y exec ""
-	bindsym u exec ""
 	bindsym o exec ""
 	bindsym g exec ""
 	bindsym z exec ""
@@ -152,7 +155,6 @@ mode "default" {
 	bindsym c exec ""
 	bindsym n exec ""
 	bindsym m exec ""
-	bindsym r exec ""
 	bindsym w exec ""
 	bindsym t exec ""
 }
@@ -262,16 +264,6 @@ mode music {
 }
 
 # Utilities:
-#
-    # Special keys to adjust volume via PulseAudio
-    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
-    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
-    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
-    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
-    # Special keys to adjust brightness via brightnessctl
-    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
-
 include /etc/sway/config.d/*
 
 
