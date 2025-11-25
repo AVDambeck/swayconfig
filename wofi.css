@@ -1,0 +1,36 @@
+window {
+margin: 0px;
+border: 1px solid red;
+background-color: black;
+}
+
+#input {
+margin: 5px;
+border: 1px solid darkgray;
+background-color: black;
+}
+
+#inner-box {
+margin: 0px;
+border: 0px solid yellow;
+background-color: black;
+}
+
+#outer-box {
+margin: 5px;
+border: 2px solid black;
+background-color: black;
+}
+
+#scroll {
+margin: 5px;
+border: 0px solid orange;
+background-color: black;
+}
+
+#text {
+margin: 0px;
+border: 0px solid cyan;
+background-color: black;
+padding: 10px;
+} 

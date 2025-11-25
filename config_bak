@@ -1,0 +1,271 @@
+# Autostart
+exec mpd
+
+# Var
+set $term alacritty
+set $menu wofi --show=drun --lines=1 --prompt=="Do What Thou Wilt" -b -i
+
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $color_primary #E62100
+set $color_text #FFFFFF
+set $color_background #000000
+set $color_gray #5C1A19
+
+set $out-left HDMI-A-3
+set $out-right HDMI-A-2
+
+# Workspaces
+workspace "1 music" output $out-left
+workspace "2 comms" output $out-left
+workspace "3 misc" output $out-left
+workspace "4 network" output $out-left
+workspace "0" output $out-right
+workspace "1" output $out-right
+workspace "2" output $out-right
+workspace "3" output $out-right
+workspace "4" output $out-right
+workspace "5" output $out-right
+workspace "6" output $out-right
+workspace "7" output $out-right
+workspace "8" output $out-right
+workspace "9" output $out-right
+
+# Config
+seat * hide_cursor when-typing enable
+input * {
+	xkb_options caps:hyper
+}
+
+output * bg ~/documents/git/swayconfig/wallpaper.jpg fill
+output $out-left {
+	transform 270
+	pos 0,0
+}
+focus_follows_mouse no
+
+# Color
+client.focused $color_primary $color_background $color_text
+client.unfocused $color_gray $color_background $color_text
+client.focused_inactive $color_gray $color_background $color_text
+
+# Status Bar:
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position bottom
+
+    status_command while echo -e $(if [ "$(mpc current)" != "" ]; then echo \| $(mpc current -f %artist%) - $(mpc current -f %album%) - $(mpc current -f %title%) - $(mpc status  %currenttime%/%totaltime%) - $(mpc current -f %position%)/$(mpc playlist | wc -l); fi) \| $(pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | cut -d'/' -f2) \| $(date +'%Y-%m-%d | %R') \|; do sleep 1; done
+
+    colors {
+        statusline $color_text
+        background $color_background
+        inactive_workspace $color_gray $color_background $color_text
+        active_workspace $color_primary $color_background $color_text
+	focused_workspace $color_primary $color_background $color_text
+	urgent_workspace $color_background $color_primary $color_text
+	binding_mode $color_gray $color_background $color_text
+    }
+}
+
+
+mode "default" {
+	# modes
+	bindsym i mode "interaction mode"
+        bindsym r mode "resize mode"
+	bindsym Space exec $menu; mode "interaction mode"
+
+        # Tools
+ 	bindsym semicolon exec $term; mode "interaction mode"
+	bindsym Shift+x kill
+	## Screenshot
+       	bindsym p exec grim -g "$(slurp)" - | swappy -f - -o ~/temp/$(date +%y-%m-%d_%h:%m:%S).png
+	## edit config
+	# bindsym c exec $term -e vim .config/sway/config; mode "interaction mode"
+	## page up and down
+	bindsym q exec wtype -P Down -P Down -P Down -P Down -P Down
+	bindsym Shift+q exec wtype -P Up -P Up -P Up -P Up -P Up
+	# Special keys to adjust brightness via brightnessctl
+	bindsym b exec brightnessctl set 5%-
+	bindsym Shift+b exec brightnessctl set 5%+
+
+    	# Movement
+        bindsym $left focus left
+        bindsym $down focus down
+        bindsym $up focus up
+        bindsym $right focus right
+
+	bindsym Tab focus next
+	bindsym Shift+Tab focus prev
+
+        bindsym Shift+$left move left
+        bindsym Shift+$down move down
+        bindsym Shift+$up move up
+        bindsym Shift+$right move right
+
+        bindsym shift+s splith
+        bindsym v splitv
+
+        # Workspace
+        bindsym 0 workspace "0";
+        bindsym 1 workspace "1";
+        bindsym 2 workspace "2";
+        bindsym 3 workspace "3";
+        bindsym 4 workspace "4";
+        bindsym 5 workspace "5";
+        bindsym 6 workspace "6";
+        bindsym 7 workspace "7";
+        bindsym 8 workspace "8";
+        bindsym 9 workspace "9";
+
+	bindsym a workspace "1 music"
+	bindsym s workspace "2 comms"
+	bindsym d workspace "3 misc"
+	bindsym f workspace "4 network"
+
+        bindsym Shift+0 move container to workspace "0"
+        bindsym Shift+1 move container to workspace "1"
+        bindsym Shift+2 move container to workspace "2"
+        bindsym Shift+3 move container to workspace "3"
+        bindsym Shift+4 move container to workspace "4"
+        bindsym Shift+5 move container to workspace "5"
+        bindsym Shift+6 move container to workspace "6"
+        bindsym Shift+7 move container to workspace "7"
+        bindsym Shift+8 move container to workspace "8"
+        bindsym Shift+9 move container to workspace "9"
+
+	bindsym Alt+a move container to workspace "1 music"
+	bindsym Alt+s move container to workspace "2 comms"
+	bindsym Alt+d move container to workspace "3 misc"
+	bindsym Alt+f move container to workspace "4 network"
+
+	# Special keys to adjust volume via PulseAudio
+	# bindsym  exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+	bindsym u exec pactl set-sink-volume \@DEFAULT_SINK@ -10%
+	bindsym Shift+u exec pactl set-sink-volume \@DEFAULT_SINK@ +10%
+
+	# unused 
+	bindsym y exec ""
+	bindsym o exec ""
+	bindsym g exec ""
+	bindsym z exec ""
+	bindsym x exec ""
+	bindsym c exec ""
+	bindsym n exec ""
+	bindsym m exec ""
+	bindsym w exec ""
+	bindsym t exec ""
+}
+
+# Focus
+mode "interaction mode" {
+	# Reload 
+	bindsym Mod4+Shift+c reload
+	bindsym Mod4+c exec $term -e vim .config/sway/config
+
+	# Modes
+	bindsym hyper_l mode "default"
+
+	# Exitl
+	bindsym Mod4+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+	# focus
+	bindsym Mod4+$left focus left
+	bindsym Mod4+$down focus down
+	bindsym Mod4+$up focus up
+	bindsym Mod4+$right focus right
+
+	# Tools
+	bindsym Alt+Tab focus next
+	bindsym Shift+Alt+Tab focus prev 
+	bindsym Mod4+Return exec $term
+	bindsym Mod4+Shift+q kill
+	bindsym Mod4+d exec $menu
+
+	# Make the current focus fullscreen
+	bindsym Mod4+f fullscreen
+}
+
+# Resize
+mode "resize mode" {
+    set $resizeunit 50px
+    bindsym $left resize shrink width $resizeunit
+    bindsym $down resize grow height $resizeunit
+    bindsym $up resize shrink height $resizeunit
+    bindsym $right resize grow width $resizeunit
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# Arrow
+mode "arrow mode" {
+    bindsym Escape mode "default"
+    bindsym hyper_l mode "default"
+    bindsym i mode "interaction mode"
+    bindsym v mode "selection"
+
+    bindsym $left exec wtype -P Left 
+    bindsym $right exec wtype -P Right 
+    bindsym $up exec wtype -P Up 
+    bindsym $down exec wtype -P Down 
+
+    bindsym 0 exec wtype -P Home
+    bindsym dollar exec wtype -P End 
+    bindsym b exec wtype -M ctrl -P left
+    bindsym e exec wtype -M ctrl -P right
+
+    bindsym Shift+j exec wtype -P Next
+    bindsym Shift+k exec wtype -P Prior
+
+    bindsym y exec wtype -M ctrl c 
+    bindsym Shift+y exec wtype -M ctrl x 
+    bindsym p exec wtype -M ctrl v 
+    bindsym u exec wtype -M ctrl z 
+    bindsym Shift+u exec wtype -M ctrl -M shift z 
+}
+
+# Selection
+mode selection {
+    bindsym $left exec wtype -M shift -P Left 
+    bindsym $right exec wtype -M shift -P Right 
+    bindsym $up exec wtype -M shift -P Up 
+    bindsym $down exec wtype -M shift -P Down 
+
+    bindsym 0 exec wtype -M shift -P Home
+    bindsym dollar exec wtype -M shift -P End 
+
+    bindsym b exec wtype -M ctrl -M shift -P left
+    bindsym e exec wtype -M ctrl -M shift -P right
+
+    bindsym ctrl+$up exec wtype -M ctrl -M shift -P Up 
+    bindsym ctrl+$down exec wtype -M ctrl -M shift -P Down 
+
+    bindsym Escape mode "arrow mode"
+    bindsym v mode "arrow mode"
+    bindsym hyper_l "default"
+}
+
+# Music
+mode music {
+    bindsym $left exec mpc prev
+    bindsym $down exec mpc pause
+    bindsym $up exec mpc play
+    bindsym $right exec mpc next
+    bindsym Shift+$left exec mpc seek -30
+    bindsym Shift+$right exec mpc seek +30
+#    bindsym a exec $term -e imv "$(echo /home/carrieanne/music/$(mpc current -f "%file%" | sed 's/\/[^\/]*$//'))"/*.{jpg,jpeg,png,gif,bmp,webm}
+    bindsym m exec xdg-open ~/documents/music.ods
+    bindsym t exec ario
+    bindsym semicolon exec $term --working-directory ~/music
+    bindsym Escape mode "default"
+}
+
+# Utilities:
+include /etc/sway/config.d/*
+
+
+
+
