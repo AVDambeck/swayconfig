@@ -1,5 +1,6 @@
 # Autostart
 exec mpd
+exec pactl set-sink-volume \@DEFAULT_SINK@ 100%
 
 # Var
 set $term alacritty
