@@ -61,15 +61,15 @@ bar {
 
 	status_command ~/documents/git/dotfiles/bar.sh
 
-    colors {
-        statusline $color_text
-        background $color_background
-        inactive_workspace $color_gray $color_background $color_text
-        active_workspace $color_primary $color_background $color_text
-	focused_workspace $color_primary $color_background $color_text
-	urgent_workspace $color_background $color_primary $color_text
-	binding_mode $color_gray $color_background $color_text
-    }
+	colors {
+		statusline $color_text
+		background $color_background
+		inactive_workspace $color_gray $color_background $color_text
+		active_workspace $color_primary $color_background $color_text
+		focused_workspace $color_primary $color_background $color_text
+		urgent_workspace $color_background $color_primary $color_text
+		binding_mode $color_gray $color_background $color_text
+	}
 }
 
 
@@ -148,7 +148,7 @@ mode "default" {
 	bindsym u exec pactl set-sink-volume \@DEFAULT_SINK@ -10%
 	bindsym Shift+u exec pactl set-sink-volume \@DEFAULT_SINK@ +10%
 
-	# unused 
+	# unbind
 	bindsym y exec ""
 	bindsym o exec ""
 	bindsym g exec ""
@@ -159,6 +159,8 @@ mode "default" {
 	bindsym m exec ""
 	bindsym w exec ""
 	bindsym t exec ""
+	bindsym colon exec ""
+	bindsym slash exec ""
 }
 
 # Focus
